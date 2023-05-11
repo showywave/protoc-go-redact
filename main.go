@@ -49,6 +49,10 @@ func do(file string) {
 
 	genRedact(file, dmd)
 
+	if !dmd.NeedGen {
+		return
+	}
+
 	writeFile(file, dmd)
 }
 
@@ -67,6 +71,7 @@ type Demand struct {
 	Sign     string
 	FuncName string
 	Buf      *bytes.Buffer
+	NeedGen  bool
 }
 
 func genRedact(file string, dmd *Demand) {
@@ -147,6 +152,8 @@ func genRedact(file string, dmd *Demand) {
 			writeLine(dmd.Buf, `	return fmt.Sprintf("`, strings.Join(kl, " "), `", `, strings.Join(vl, ", "), ")")
 			writeLine(dmd.Buf, "}")
 			writeLine(dmd.Buf)
+
+			dmd.NeedGen = needGen
 		}
 	}
 }
