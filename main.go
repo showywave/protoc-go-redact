@@ -56,7 +56,7 @@ func writeFile(file string, dmd *Demand) {
 	dir, srcFileName := filepath.Split(file)
 	fmt.Println(dir)
 	destFilePath := dir + "/" + DestFilePrefix + srcFileName
-	err := os.WriteFile(destFilePath, dmd.Buf.Bytes(), 0o644)
+	err := os.WriteFile(destFilePath, dmd.Buf.Bytes(), 0o600)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -119,7 +119,7 @@ func genRedact(file string, dmd *Demand) {
 				continue
 			}
 
-			kt := "%v"
+			var kt string
 			switch fieldType.Name {
 			case "string":
 				kt = "%s"

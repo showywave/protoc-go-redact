@@ -38,7 +38,7 @@ type LoginRequest2 struct {
 $ protoc-go-redact -input=eg/eg1.pb.go
 ```
 
-will generate `eg/deract_eg1.pb.go` file:
+will generate `eg/redact_eg1.pb.go` file:
 ```go
 package eg
 
