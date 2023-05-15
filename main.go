@@ -15,9 +15,10 @@ import (
 
 const DestFilePrefix = "redact_"
 
+var input string
+
 func main() {
-	var input string
-	flag.StringVar(&input, "input", "", "input a Go file")
+	flag.StringVar(&input, "input", "", "input is a Go file")
 	flag.Parse()
 
 	if len(input) == 0 {
@@ -42,7 +43,7 @@ func do(file string) {
 	}
 
 	dmd := &Demand{
-		Sign:     "@ban",
+		Sign:     "@b@n",
 		FuncName: "Redact",
 		Buf:      &bytes.Buffer{},
 	}
@@ -58,12 +59,12 @@ func do(file string) {
 
 func writeFile(file string, dmd *Demand) {
 	dir, srcFileName := filepath.Split(file)
-	fmt.Println(dir)
-	destFilePath := dir + "/" + DestFilePrefix + srcFileName
+	destFilePath := dir + DestFilePrefix + srcFileName
 	err := os.WriteFile(destFilePath, dmd.Buf.Bytes(), 0o600)
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println(destFilePath)
 }
 
 // Demand
