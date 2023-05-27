@@ -149,7 +149,7 @@ func genRedact(file string, dmd *Demand) {
 		}
 
 		if needGen {
-			writeLine(dmd.Buf, "func (x *", typeSpec.Name, ") "+dmd.FuncName+" () string {")
+			writeLine(dmd.Buf, "func (x *", typeSpec.Name, ") "+dmd.FuncName+"() string {")
 			writeLine(dmd.Buf, `	return fmt.Sprintf("`, strings.Join(kl, " "), `", `, strings.Join(vl, ", "), ")")
 			writeLine(dmd.Buf, "}")
 			writeLine(dmd.Buf)
