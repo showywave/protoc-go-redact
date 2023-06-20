@@ -82,7 +82,6 @@ func genRedact(file string, dmd *Demand) {
 	writeLine(dmd.Buf, "package "+astFile.Name.String())
 	writeLine(dmd.Buf)
 	writeLine(dmd.Buf, `import "fmt"`)
-	writeLine(dmd.Buf)
 
 	for _, decl := range astFile.Decls {
 		genDecl, ok := decl.(*ast.GenDecl)
@@ -149,10 +148,10 @@ func genRedact(file string, dmd *Demand) {
 		}
 
 		if needGen {
+			writeLine(dmd.Buf)
 			writeLine(dmd.Buf, "func (x *", typeSpec.Name, ") "+dmd.FuncName+"() string {")
 			writeLine(dmd.Buf, `	return fmt.Sprintf("`, strings.Join(kl, " "), `", `, strings.Join(vl, ", "), ")")
 			writeLine(dmd.Buf, "}")
-			writeLine(dmd.Buf)
 
 			dmd.NeedGen = needGen
 		}
